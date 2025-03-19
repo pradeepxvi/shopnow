@@ -7,7 +7,7 @@ from django.conf import settings
 def send_verification_email(user):
     subject = "Verify Your Email"
     verification_link = (
-        f"http://127.0.0.1:8000/email_verification/{user.verification_token}/"
+        f"https://wizzzeee.onrender.com/email_verification/{user.verification_token}/"
     )
 
     message = f"""
