@@ -26,7 +26,6 @@
             alt="Logo"
             class="h-10 aspect-square rounded-full"
           />
-          <span class="text-2xl font-bold">ShopNow</span>
         </a>
 
         <!-- Mobile Menu Toggle Button -->
@@ -52,16 +51,12 @@
         <!-- Desktop Menu Links -->
         <div class="hidden lg:flex space-x-6 items-center">
           <a href="{% url 'home' %}" class="hover:text-indigo-600">Home</a>
-          <a href="#" class="hover:text-indigo-600">Shop</a>
-          <a href="#" class="hover:text-indigo-600">Cart</a>
-          <a href="#" class="hover:text-indigo-600">About Us</a>
-          <a href="#" class="hover:text-indigo-600">Contact</a>
 
           {% if request.user.is_authenticated %}
           <a
             href="{% url 'profile' request.user.username %}"
             class="hover:text-orange-500"
-            >Profile</a
+            >{{request.user.username}}</a
           >
           <a href="{% url 'logout' %}" class="hover:text-orange-500">Logout</a>
           {% else %}
@@ -97,16 +92,12 @@
       </div>
       <div class="flex flex-col items-center text-white">
         <a href="{% url 'home' %}" class="py-2 hover:text-indigo-600">Home</a>
-        <a href="#" class="py-2 hover:text-indigo-600">Shop</a>
-        <a href="#" class="py-2 hover:text-indigo-600">Cart</a>
-        <a href="#" class="py-2 hover:text-indigo-600">About Us</a>
-        <a href="#" class="py-2 hover:text-indigo-600">Contact</a>
 
         {% if request.user.is_authenticated %}
         <a
           href="{% url 'profile' request.user.username %}"
           class="py-2 text-orange-500"
-          >Profile</a
+          >{{request.user.username}}</a
         >
         <a href="{% url 'logout' %}" class="py-2 text-orange-500">Logout</a>
         {% else %}
