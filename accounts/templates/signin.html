@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head %}
+<!--  -->
+<title>Signin</title>
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block body %}
+<!--  -->
+<div class="flex justify-center items-center min-h-screen">
+  <div class="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-lg text-white">
+    <h2 class="text-3xl font-semibold text-center mb-6">Sign In</h2>
+
+    {% if form.non_field_errors %}
+    <div class="my-4 text-red-400 ml-4 font-bold">
+      {% for error in form.non_field_errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'signin' %}" method="post" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="username"
+          placeholder="Enter your email"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.username.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.username.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.password.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.password.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <a href="{% url 'password_reset' %}">forgot password</a>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button
+          type="submit"
+          class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--  -->
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head %}
+<!--  -->
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block body %}
+<!--  -->
+<div class="flex justify-center items-center min-h-screen">
+  <div class="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-lg text-white">
+    <h2 class="text-3xl font-semibold text-center mb-6">Sign Up</h2>
+
+    {% if form.non_field_errors %}
+    <div class="my-4 text-red-400 ml-4 font-bold">
+      {% for error in form.non_field_errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'signup' %}" method="post" class="space-y-6">
+      {% csrf_token %}
+      <!-- First Name -->
+      <div>
+        <label for="first-name" class="block text-sm font-medium"
+          >First Name</label
+        >
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          placeholder="Enter your first name"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.first_name.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.first_name.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Last Name -->
+      <div>
+        <label for="last-name" class="block text-sm font-medium"
+          >Last Name</label
+        >
+        <input
+          type="text"
+          id="last_name"
+          name="last_name"
+          placeholder="Enter your last name"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.last_name.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.last_name.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label for="username" class="block text-sm font-medium">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter your username"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.username.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.username.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.email.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.email.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium">Password</label>
+        <input
+          type="password"
+          id="password1"
+          name="password1"
+          placeholder="Enter your password"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.password1.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.password1.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Change Password -->
+      <div>
+        <label for="confirm-password" class="block text-sm font-medium"
+          >Confirm Password</label
+        >
+        <input
+          type="password"
+          id="password2"
+          name="password2"
+          placeholder="Confirm your password"
+          required
+          class="mt-2 px-4 py-2 w-full rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+
+        {% if form.password2.errors %}
+        <div class="ml-4 my-1">
+          {% for error in form.password2.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button
+          type="submit"
+          class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--  -->
+{% endblock %}

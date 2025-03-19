@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background-color: black;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-700 text-white shadow-md sticky top-0 z-50">
+      <div
+        class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-2">
+          <img
+            src="{% static 'images/logo1.png' %}"
+            alt="Logo"
+            class="h-10 w-auto rounded-full"
+          />
+          <span class="text-2xl font-bold">ShopNow</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="flex space-x-6 items-center">
+          <a href="{% url 'home' %}" class="hover:text-indigo-600">Home</a>
+          <a href="#" class="hover:text-indigo-600">Shop</a>
+          <a href="#" class="t hover:text-indigo-600">Cart</a>
+
+          <!-- Dropdown Menu -->
+          <div class="relative">
+            <!-- Categories Button -->
+            <button id="categoryButton" class="flex items-center">
+              Categories ▼
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div
+              id="categoryMenu"
+              class="absolute left-0 hidden bg-gray-500 shadow-md mt-2 rounded-md w-48 transition-opacity duration-200"
+            >
+              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
+                >Electronics</a
+              >
+              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
+                >Fashion</a
+              >
+              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
+                >Home & Kitchen</a
+              >
+              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
+                >Sports</a
+              >
+            </div>
+          </div>
+
+          <a href="#" class="t hover:text-indigo-600">About Us</a>
+          <a href="#" class="t hover:text-indigo-600">Contact</a>
+
+          <div class="relative">
+            <!-- Categories Button -->
+            <button id="authButton" class="flex items-center cursor-pointer">
+              {% if request.user.is_authenticated %} Profile ▼{% else %}
+              Authentication ▼ {% endif %}
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div
+              id="authMenu"
+              class="absolute left-0 hidden bg-gray-500 shadow-md mt-2 rounded-md w-48 transition-opacity duration-200 flex flex-col p-3 gap-3"
+            >
+              {% if request.user.is_authenticated %}
+              <a
+                href="{% url 'profile' request.user.username %}"
+                class="t hover:text-orange-500"
+              >
+                {{ request.user.username }}
+              </a>
+              <a href="{% url 'logout' %}" class="t hover:text-orange-500"
+                >Logout</a
+              >
+              {% else %}
+              <a href="{% url 'signin' %}" class="t hover:text-orange-500"
+                >Signin</a
+              >
+              <a href="{% url 'signup' %}" class="t hover:text-orange-500"
+                >Signup</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    {% block body %} {% endblock %}
+
+    <footer class="bg-gray-800 text-white py-8">
+      <div class="max-w-screen-xl mx-auto px-4 text-center">
+        <p>&copy; 2025 ShopNow. All rights reserved.</p>
+        <div class="mt-4 space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white"
+            >Terms of Service</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  <script>
+    const categoryButton = document.getElementById("categoryButton");
+    const categoryMenu = document.getElementById("categoryMenu");
+
+    const authButton = document.getElementById("authButton");
+    const authMenu = document.getElementById("authMenu");
+
+    function dropDown(button, menu) {
+      button.addEventListener("mouseenter", () => {
+        menu.classList.remove("hidden");
+      });
+
+      menu.addEventListener("mouseenter", () => {
+        menu.classList.remove("hidden");
+      });
+
+      menu.addEventListener("mouseleave", () => {
+        menu.classList.add("hidden");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+          menu.classList.add("hidden");
+        }
+      });
+    }
+
+    dropDown(categoryButton, categoryMenu);
+    dropDown(authButton, authMenu);
+  </script>
+</html>
