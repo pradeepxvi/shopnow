@@ -2,33 +2,87 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      body {
-        background-color: black;
-      }
-    </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     {% block head %} {% endblock %}
   </head>
   <body>
-    <nav class="bg-gray-700 text-white shadow-md sticky top-0 z-50">
-      <div
-        class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center"
-      >
-        <!-- Logo -->
-        <a href="#" class="flex items-center space-x-2">
-          <img
-            src="https://picsum.photos/200/300?random=1"
-            alt="Logo"
-            class="h-10 aspect-square rounded-full"
-          />
-        </a>
+    <div class="bg-gray-900">
+      <nav class="text-white bg-gray-900 sticky top-0 z-50">
+        <div
+          class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center"
+        >
+          <!-- Logo -->
+          <a
+            href="{% url 'home' %}"
+            class="flex items-center space-x-2 uppercase lg:text-4xl text-3xl font-extrabold"
+          >
+            {% if request.user.is_authenticated %}
+            <!--  -->
+            {{ request.user.username }}
+            <!--  -->
+            {% else %}
+            <!--  -->
+            pradeep
+            <!--  -->
+            {%endif%}
+          </a>
 
-        <!-- Mobile Menu Toggle Button -->
-        <div class="lg:hidden flex items-center">
-          <button id="mobileMenuButton" class="text-white focus:outline-none">
+          <!-- Mobile Menu Toggle Button -->
+          <div class="lg:hidden flex items-center">
+            <button id="mobileMenuButton" class="text-white focus:outline-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Desktop Menu Links -->
+          <div
+            class="hidden lg:flex space-x-6 items-center font-extrabold uppercase"
+          >
+            <a href="{% url 'home' %}" class="hover:text-indigo-600">Home</a>
+
+            {% if request.user.is_authenticated %}
+            <a
+              href="{% url 'profile' request.user.username %}"
+              class="hover:text-orange-500"
+              >{{request.user.username}}</a
+            >
+            <a href="{% url 'logout' %}" class="hover:text-orange-500"
+              >Logout</a
+            >
+            {% else %}
+            <a href="{% url 'signin' %}" class="hover:text-orange-500"
+              >Signin</a
+            >
+            <a href="{% url 'signup' %}" class="hover:text-orange-500"
+              >Signup</a
+            >
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Sidebar -->
+      <div
+        id="sidebar"
+        class="lg:hidden fixed inset-0 bg-gray-700 bg-opacity-75 z-40 hidden"
+      >
+        <div class="flex justify-end p-4">
+          <button id="closeSidebar" class="text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -40,88 +94,48 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                d="M6 18L18 6M6 6l12 12"
               />
             </svg>
           </button>
         </div>
-
-        <!-- Desktop Menu Links -->
-        <div class="hidden lg:flex space-x-6 items-center">
-          <a href="{% url 'home' %}" class="hover:text-indigo-600">Home</a>
+        <div class="flex flex-col items-center text-white">
+          <a href="{% url 'home' %}" class="py-2 hover:text-indigo-600">Home</a>
 
           {% if request.user.is_authenticated %}
           <a
             href="{% url 'profile' request.user.username %}"
-            class="hover:text-orange-500"
+            class="py-2 text-orange-500"
             >{{request.user.username}}</a
           >
-          <a href="{% url 'logout' %}" class="hover:text-orange-500">Logout</a>
+          <a href="{% url 'logout' %}" class="py-2 text-orange-500">Logout</a>
           {% else %}
-          <a href="{% url 'signin' %}" class="hover:text-orange-500">Signin</a>
-          <a href="{% url 'signup' %}" class="hover:text-orange-500">Signup</a>
+          <a href="{% url 'signin' %}" class="py-2 text-orange-500">Signin</a>
+          <a href="{% url 'signup' %}" class="py-2 text-orange-500">Signup</a>
           {% endif %}
         </div>
       </div>
-    </nav>
 
-    <!-- Mobile Sidebar -->
-    <div
-      id="sidebar"
-      class="lg:hidden fixed inset-0 bg-gray-700 bg-opacity-75 z-40 hidden"
-    >
-      <div class="flex justify-end p-4">
-        <button id="closeSidebar" class="text-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="h-6 w-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-      <div class="flex flex-col items-center text-white">
-        <a href="{% url 'home' %}" class="py-2 hover:text-indigo-600">Home</a>
+      <div class="bg-white">{% block body %} {% endblock %}</div>
 
-        {% if request.user.is_authenticated %}
-        <a
-          href="{% url 'profile' request.user.username %}"
-          class="py-2 text-orange-500"
-          >{{request.user.username}}</a
-        >
-        <a href="{% url 'logout' %}" class="py-2 text-orange-500">Logout</a>
-        {% else %}
-        <a href="{% url 'signin' %}" class="py-2 text-orange-500">Signin</a>
-        <a href="{% url 'signup' %}" class="py-2 text-orange-500">Signup</a>
-        {% endif %}
-      </div>
-    </div>
+      <footer class="bg-gray-900 btext-white py-8">
+        <div class="max-w-screen-xl mx-auto px-4 text-center">
+          <p>&copy; 2025 ShopNow. All rights reserved.</p>
+          <p class="capitalize font-bold mt-2 text-gray-400">
+            developer <span class="text-white">pradeep</span>
+          </p>
+          <div class="mt-4 space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white"
+              >Privacy Policy</a
+            >
 
-    {% block body %} {% endblock %}
-
-    <footer class="bg-gray-800 text-white py-8">
-      <div class="max-w-screen-xl mx-auto px-4 text-center">
-        <p>&copy; 2025 ShopNow. All rights reserved.</p>
-        <p class="capitalize font-bold mt-2 text-gray-400">
-          developer <span class="text-white">pradeep</span>
-        </p>
-        <div class="mt-4 space-x-6">
-          <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
-
-          <a href="#" class="text-gray-400 hover:text-white"
-            >Terms of Service</a
-          >
+            <a href="#" class="text-gray-400 hover:text-white"
+              >Terms of Service</a
+            >
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </body>
 
   <script>

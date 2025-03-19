@@ -9,14 +9,14 @@
 {% block body %}
 <!-- body here  -->
 <!-- Hero Section with Big Banner -->
-<section class="relative w-full">
+<section class="relative w-full bg-black">
   <img
     src="{% static 'images/banners/2.png' %}"
     alt="Big Banner"
-    class="w-full h-96 object-cover opacity-30"
+    class="w-full h-96 object-cover opacity-30 blur"
   />
   <div
-    class="absolute inset-0 flex flex-col justify-center items-center text-white text-center bg-black bg-opacity-50"
+    class="absolute inset-0 flex flex-col justify-center items-center text-white text-center"
   >
     <h1 class="text-5xl font-bold">Welcome to ShopNow</h1>
     <p class="mt-4 text-xl">Find the best products at unbeatable prices!</p>
@@ -30,10 +30,10 @@
 </section>
 
 <!-- Products Section -->
-<section id="products" class="py-16 bg-gray-500">
+<section id="products" class="py-16">
   <div class="max-w-screen-xl mx-auto px-4">
     <h2
-      class="text-3xl font-bold text-center bg-gray-400 w-fit mx-auto py-2 px-5 shadow shaodw-3xl shadow-blue-400 rounded"
+      class="text-3xl font-bold text-center bg-violet-400 w-fit mx-auto py-2 px-5 shadow shaodw-3xl shadow-blue-400 rounded"
     >
       Our Products
     </h2>
@@ -42,7 +42,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8"
     >
       {% for i in loop %}
-      <div class="bg-white shadow-lg rounded-lg p-4">
+      <div class="bg-gray-200 shadow-black shadow-lg rounded-lg p-4">
         <img
           src="https://picsum.photos/200/300?random={{i}}"
           alt="Product {{i}}"
