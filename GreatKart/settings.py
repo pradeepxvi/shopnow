@@ -26,8 +26,10 @@ SECRET_KEY = "django-insecure-svv=l28k)6x)sn4abo(qg6+ozsd6j)rb@h+pvbj&fwum4xbfzj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-#
+ALLOWED_HOSTS = ["wizzzeee.onrender.com", "127.0.0.1"]
+
+LOGIN_URL = "signin"
+
 
 # Application definition
 
@@ -136,8 +138,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # email
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

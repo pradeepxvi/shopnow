@@ -36,6 +36,7 @@ class Signup(View):
 class Signin(View):
 
     def get(self, request):
+
         form = CustomAuthenticationForm()
         context = {"form": form}
         return render(request, "signin.html", context)
@@ -68,11 +69,8 @@ class Signin(View):
         return render(request, "signin.html", context)
 
 
-class Profile(LoginRequiredMixin, UserPassesTestMixin, View):
-
-    def test_func(self):
-        usernames = ["admin", "wizzee"]
-        return self.request.user.username in usernames
+class Profile(LoginRequiredMixin, View):
+    login_url = "signins"
 
     def get(self, request, username):
         try:
@@ -89,13 +87,16 @@ def email_verification(request, token):
         if user.is_verified:
             print("user is already verified")
 
-            return render(request, "verified_page.html")
+            return render(request, "email_verification.html")
 
         user.is_verified = True
         print("user is verified")
         user.save()
 
-        return render(request, "verified_page.html")
+        if user.is_authenticated:
+            logout(request)
+
+        return render(request, "email_verification.html")
     except CustomUser.DoesNotExist:
         return HttpResponse("No user found")
 

@@ -9,9 +9,11 @@
 {% block body %}
 <!--  -->
 
-<div class="w-full bg-white min-h-screen text-center">
+<div class="w-full bg-white min-h-screen text-center flex flex-col gap-10">
   <h1 class="text-center text-3xl font-extrabold">Your email is verified</h1>
-  <a class="font-extrabold bg-orange-500 p-2" href="{% url 'signin' %}"
+  <a
+    class="font-extrabold bg-orange-500 py-3 px-10 w-fit mx-auto rounded shadow shadow-black shadow-lg hover:bg-black hover:text-white hover:shadow-inner"
+    href="{% url 'signin' %}"
     >Login here</a
   >
 </div>
