@@ -25,7 +25,7 @@ class Signup(View):
             user.is_verified = False
             user.save()
 
-            send_verification_email(user=user)
+            send_verification_email(user=user, request=request)
 
             return redirect("signin")
 
@@ -106,7 +106,7 @@ def check_username(user):
 
 
 @login_required(login_url="signin")
-@user_passes_test(check_username)
+# @user_passes_test(check_username)
 def Logout(request):
     logout(request)
     return redirect("signin")
