@@ -7,11 +7,8 @@ from django.core.mail import BadHeaderError
 def send_verification_email(request, user):
     subject = "Verify Your Email"
 
-    scheme = request.scheme
-    host = request.get_host()
-    verification_link = (
-        f"{scheme}://{host}/email_verification/{user.verification_token}/"
-    )
+    domain = "https://wizzzeee.onrender.com"
+    verification_link = f"{domain}/email_verification/{user.verification_token}/"
 
     # Email message in plain text
     message = f"""
