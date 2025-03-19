@@ -14,6 +14,7 @@
   </head>
   <body>
     <!-- Navigation Bar -->
+
     <nav class="bg-gray-700 text-white shadow-md sticky top-0 z-50">
       <div
         class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center"
@@ -28,77 +29,92 @@
           <span class="text-2xl font-bold">ShopNow</span>
         </a>
 
-        <!-- Navigation Links -->
-        <div class="flex space-x-6 items-center">
+        <!-- Mobile Menu Toggle Button -->
+        <div class="lg:hidden flex items-center">
+          <button id="mobileMenuButton" class="text-white focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-6 w-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Desktop Menu Links -->
+        <div class="hidden lg:flex space-x-6 items-center">
           <a href="{% url 'home' %}" class="hover:text-indigo-600">Home</a>
           <a href="#" class="hover:text-indigo-600">Shop</a>
-          <a href="#" class="t hover:text-indigo-600">Cart</a>
+          <a href="#" class="hover:text-indigo-600">Cart</a>
+          <a href="#" class="hover:text-indigo-600">About Us</a>
+          <a href="#" class="hover:text-indigo-600">Contact</a>
 
-          <!-- Dropdown Menu -->
-          <div class="relative">
-            <!-- Categories Button -->
-            <button id="categoryButton" class="flex items-center">
-              Categories ▼
-            </button>
-
-            <!-- Dropdown Menu -->
-            <div
-              id="categoryMenu"
-              class="absolute left-0 hidden bg-gray-500 shadow-md mt-2 rounded-md w-48 transition-opacity duration-200"
-            >
-              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
-                >Electronics</a
-              >
-              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
-                >Fashion</a
-              >
-              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
-                >Home & Kitchen</a
-              >
-              <a href="#" class="block px-4 py-2 t hover:bg-indigo-100"
-                >Sports</a
-              >
-            </div>
-          </div>
-
-          <a href="#" class="t hover:text-indigo-600">About Us</a>
-          <a href="#" class="t hover:text-indigo-600">Contact</a>
-
-          <div class="relative">
-            <!-- Categories Button -->
-            <button id="authButton" class="flex items-center cursor-pointer">
-              {% if request.user.is_authenticated %} Profile ▼{% else %}
-              Authentication ▼ {% endif %}
-            </button>
-
-            <!-- Dropdown Menu -->
-            <div
-              id="authMenu"
-              class="absolute left-0 hidden bg-gray-500 shadow-md mt-2 rounded-md w-48 transition-opacity duration-200 flex flex-col p-3 gap-3"
-            >
-              {% if request.user.is_authenticated %}
-              <a
-                href="{% url 'profile' request.user.username %}"
-                class="t hover:text-orange-500"
-              >
-                {{ request.user.username }}
-              </a>
-              <a href="{% url 'logout' %}" class="t hover:text-orange-500"
-                >Logout</a
-              >
-              {% else %}
-              <a href="{% url 'signin' %}" class="t hover:text-orange-500"
-                >Signin</a
-              >
-              <a href="{% url 'signup' %}" class="t hover:text-orange-500"
-                >Signup</a
-              >
-              {% endif %}
-            </div>
-          </div>
+          {% if request.user.is_authenticated %}
+          <a
+            href="{% url 'profile' request.user.username %}"
+            class="hover:text-orange-500"
+            >Profile</a
+          >
+          <a href="{% url 'logout' %}" class="hover:text-orange-500">Logout</a>
+          {% else %}
+          <a href="{% url 'signin' %}" class="hover:text-orange-500">Signin</a>
+          <a href="{% url 'signup' %}" class="hover:text-orange-500">Signup</a>
+          {% endif %}
         </div>
       </div>
     </nav>
+
+    <!-- Mobile Sidebar -->
+    <div
+      id="sidebar"
+      class="lg:hidden fixed inset-0 bg-gray-700 bg-opacity-75 z-40 hidden"
+    >
+      <div class="flex justify-end p-4">
+        <button id="closeSidebar" class="text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-col items-center text-white">
+        <a href="{% url 'home' %}" class="py-2 hover:text-indigo-600">Home</a>
+        <a href="#" class="py-2 hover:text-indigo-600">Shop</a>
+        <a href="#" class="py-2 hover:text-indigo-600">Cart</a>
+        <a href="#" class="py-2 hover:text-indigo-600">About Us</a>
+        <a href="#" class="py-2 hover:text-indigo-600">Contact</a>
+
+        {% if request.user.is_authenticated %}
+        <a
+          href="{% url 'profile' request.user.username %}"
+          class="py-2 text-orange-500"
+          >Profile</a
+        >
+        <a href="{% url 'logout' %}" class="py-2 text-orange-500">Logout</a>
+        {% else %}
+        <a href="{% url 'signin' %}" class="py-2 text-orange-500">Signin</a>
+        <a href="{% url 'signup' %}" class="py-2 text-orange-500">Signup</a>
+        {% endif %}
+      </div>
+    </div>
 
     {% block body %} {% endblock %}
 
@@ -144,5 +160,21 @@
 
     dropDown(categoryButton, categoryMenu);
     dropDown(authButton, authMenu);
+  </script>
+  <script>
+    // Get elements
+    const mobileMenuButton = document.getElementById("mobileMenuButton");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebarButton = document.getElementById("closeSidebar");
+
+    // Toggle sidebar visibility on mobile
+    mobileMenuButton.addEventListener("click", () => {
+      sidebar.classList.toggle("hidden");
+    });
+
+    // Close sidebar when clicking the close button
+    closeSidebarButton.addEventListener("click", () => {
+      sidebar.classList.add("hidden");
+    });
   </script>
 </html>
