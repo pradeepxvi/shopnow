@@ -89,13 +89,13 @@ def email_verification(request, token):
         if user.is_verified:
             print("user is already verified")
 
-            return HttpResponse("You email is already verified")
+            return render(request, "verified_page.html")
 
         user.is_verified = True
         print("user is verified")
         user.save()
 
-        return HttpResponse("Email verification successful! You can now log in.")
+        return render(request, "verified_page.html")
     except CustomUser.DoesNotExist:
         return HttpResponse("No user found")
 

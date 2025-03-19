@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head %}
+<!--  -->
+<title>email verify</title>
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block body %}
+<!--  -->
+
+<div class="w-full bg-white min-h-screen text-center">
+  <h1 class="text-center text-3xl font-extrabold">Your email is verified</h1>
+  <a class="font-extrabold bg-orange-500 p-2" href="{% url 'signin' %}"
+    >Login here</a
+  >
+</div>
+<!--  -->
+{% endblock %}
