@@ -5,8 +5,8 @@ from .forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
 from .utils import send_verification_email
+from django.contrib import messages
 
 
 # Create your views here.
@@ -26,6 +26,7 @@ class Signup(View):
             user.save()
 
             send_verification_email(user=user, request=request)
+            messages.success(request, "plese check your email for verification link.")
 
             return redirect("signin")
 
@@ -36,7 +37,6 @@ class Signup(View):
 class Signin(View):
 
     def get(self, request):
-
         form = CustomAuthenticationForm()
         context = {"form": form}
         return render(request, "signin.html", context)
