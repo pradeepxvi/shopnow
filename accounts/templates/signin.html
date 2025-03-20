@@ -18,12 +18,12 @@
 
 <div class="flex justify-center items-start min-h-screen">
   <div
-    class="bg-gray-800 p-8 lg:rounded-xl shadow-lg w-full max-w-lg text-white lg:mt-20 sm:mt-10"
+    class="p-8 bg-gray-800 lg:rounded-xl shadow-lg w-full max-w-[90%] rounded-lg mt-5 text-white lg:mt-20 sm:mt-10 shadow-black shadow-2xl relative"
   >
     <h2 class="text-3xl font-semibold text-center mb-6">Sign In</h2>
 
     {% if form.non_field_errors %}
-    <div class="my-4 text-red-400 ml-4 font-bold">
+    <div class="my-4 ml-4 font-bold">
       {% for error in form.non_field_errors %}
       <li>{{error}}</li>
       {% endfor %}
@@ -34,7 +34,7 @@
       {% csrf_token %}
 
       <!-- Email -->
-      <div>
+      <div class="font-bold">
         <label for="email" class="block text-sm font-medium">Email</label>
         <input
           type="email"
@@ -86,8 +86,10 @@
           Sign in
         </button>
 
-        <div class="text-center">
-          <a class="" href="{% url 'signup' %}">create account</a>
+        <div class="text-center mt-5">
+          <a class="font-bold hover:text-blue-600" href="{% url 'signup' %}"
+            >create account</a
+          >
         </div>
       </div>
     </form>

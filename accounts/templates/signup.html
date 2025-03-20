@@ -9,7 +9,7 @@
 <!--  -->
 <div class="flex justify-center items-start min-h-screen">
   <div
-    class="bg-gray-800 p-8 lg:rounded-xl shadow-lg w-full max-w-lg text-white lg:my-10 sm:mt-10"
+    class="bg-gray-800 p-8 lg:rounded-xl shadow-lg w-full max-w-[90%] rounded-lg my-5 text-white lg:mt-20 sm:mt-10"
   >
     <h2 class="text-3xl font-semibold text-center mb-6">Sign Up</h2>
 
@@ -163,8 +163,10 @@
         >
           Sign Up
         </button>
-        <div class="text-center">
-          <a class="" href="{% url 'signin' %}">login here</a>
+        <div class="text-center mt-5">
+          <a class="font-bold hover:text-blue-600" href="{% url 'signin' %}"
+            >login here</a
+          >
         </div>
       </div>
     </form>
