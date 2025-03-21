@@ -1,0 +1,16 @@
+from django.shortcuts import redirect
+from functools import wraps
+
+
+def logout_required(redirect_to="/"):
+
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrap_function(request, *args, **kwargs):
+            if request.user.is_authenticated:
+                return redirect(redirect_to)
+            return view_func(request, *args, **kwargs)
+
+        return wrap_function
+
+    return decorator

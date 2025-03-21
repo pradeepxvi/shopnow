@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from .views import Home
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("jeena/", admin.site.urls),
     path("", include("accounts.urls")),
     path("", Home.as_view(), name="home"),
 ]

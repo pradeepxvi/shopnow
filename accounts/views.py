@@ -1,16 +1,18 @@
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from .models import CustomUser
 from .forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from .utils import send_verification_email
 from django.contrib import messages
 
+from .mixins import LogoutRequiredMixin, LoginRequiredMixin
+
 
 # Create your views here.
-class Signup(View):
+class Signup(LogoutRequiredMixin, View):
+    redirect_to = "signin"
 
     def get(self, request):
         form = CustomUserCreationForm()
@@ -34,7 +36,7 @@ class Signup(View):
         return render(request, "signup.html", context)
 
 
-class Signin(View):
+class Signin(LogoutRequiredMixin, View):
 
     def get(self, request):
         form = CustomAuthenticationForm()
@@ -70,7 +72,7 @@ class Signin(View):
 
 
 class Profile(LoginRequiredMixin, View):
-    login_url = "signins"
+    login_url = "signin"
 
     def get(self, request, username):
         try:
@@ -101,13 +103,7 @@ def email_verification(request, token):
         return HttpResponse("No user found")
 
 
-def check_username(user):
-    usernames = ["admin", "wizzee"]
-    return user.username in usernames
-
-
 @login_required(login_url="signin")
-# @user_passes_test(check_username)
 def Logout(request):
     logout(request)
     return redirect("signin")
