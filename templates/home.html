@@ -33,7 +33,7 @@
 <section id="products" class="py-16">
   <div class="max-w-screen-xl mx-auto px-4">
     <h2
-      class="text-3xl font-bold text-center bg-violet-400 w-fit mx-auto py-2 px-5 shadow shaodw-3xl shadow-blue-400 rounded"
+      class="text-3xl font-bold text-center bg-gray-900 text-white w-fit mx-auto py-2 px-5 shadow shaodw-3xl shadow-blue-400 rounded"
     >
       Our Products
     </h2>
@@ -42,7 +42,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8"
     >
       {% for i in loop %}
-      <div class="bg-gray-200 shadow-black shadow-lg rounded-lg p-4">
+      <div class="bg-gray-100 shadow-black shadow-lg rounded-lg p-4">
         <img
           src="https://picsum.photos/200/300?random={{i}}"
           alt="Product {{i}}"
@@ -50,11 +50,18 @@
         />
         <h3 class="mt-4 text-xl font-semibold text-gray-800">Product {{i}}</h3>
         <p class="mt-2 text-gray-600">$29.99</p>
-        <button
-          class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Add to Cart
-        </button>
+        <div class="w-full flex justify-between">
+          <button
+            class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Add to Cart
+          </button>
+          <button
+            class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
       {% endfor %}
     </div>
