@@ -59,14 +59,10 @@ class Signin(LogoutRequiredMixin, View):
                     print("done")
                     return redirect("home")
                 else:
-                    print("not verified")
+                    messages.error(request, "Your account is not verified yet.")
+                    print("Your account is not verified yet.")
             else:
                 print("user not found")
-        else:
-            print("form is not valid")
-            print(form.errors)
-            print(form.non_field_errors)
-
         context = {"form": form}
         return render(request, "signin.html", context)
 
